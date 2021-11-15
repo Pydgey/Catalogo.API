@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Catalogo_de_Jogos___API.InputModel;
+using Catalogo_de_Jogos___API.Services;
+using Catalogo_de_Jogos___API.ViewModel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,30 +10,39 @@ using System.Threading.Tasks;
 
 namespace Catalogo_de_Jogos.API.Controllers.V1
 {
+
     [Route("api/V1/[controller]")]
     [ApiController]
     public class JogosController : ControllerBase
     {
-        [HttpGet]
-        public async Task<ActionResult<List<object>>> Obter()
+        private readonly IJogoService _jogoService;
+
+        public JogosController(IJogoService jogoService)
         {
-            return Ok();
+            _jogoService = jogoService;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<JogoViewModel>>> Obter()
+        {
+            var result = await _jogoService.Obter(1, 5);
+            return Ok(result);
         }
 
         [HttpGet("(idjogo:guid)")]
-        public async Task<ActionResult<object>> Obter(Guid idjogo)
+        public async Task<ActionResult<JogoViewModel>> Obter(Guid idjogo)
         {
             return Ok();
         }
 
         [HttpPost]
-        public async Task<ActionResult<object>> InserirJogo(object jogo)
+        public async Task<ActionResult<JogoViewModel>> InserirJogo(JogoInputModel jogo)
         {
             return Ok();
         }
 
         [HttpPut("(idjogo:guid)")]
-        public async Task<ActionResult> AtualizarJogo(Guid idjogo, object jogo)
+        public async Task<ActionResult> AtualizarJogo(Guid idjogo, JogoInputModel jogo)
         {
             return Ok();
         }
