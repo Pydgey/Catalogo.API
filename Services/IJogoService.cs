@@ -19,6 +19,6 @@ namespace Catalogo_de_Jogos___API.Services
 
         Task AtualizarPreco(Guid id, double preco);
 
-        Task Recover(Guid id);
+        Task Remover(Guid id);
     }
 }
