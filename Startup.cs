@@ -1,5 +1,6 @@
 using Catalogo_de_Jogos___API.Repositories;
 using Catalogo_de_Jogos___API.Services;
+using Catalogo_de_Jogos___API.MiddleWare;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,7 +30,7 @@ namespace Catalogo_de_Jogos.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IJogoService, JogoService>();
-            services.AddScoped<IJogoRepository, JogoSqlServerRepository>();
+            services.AddScoped<IJogoRepository, JogoRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -47,6 +48,8 @@ namespace Catalogo_de_Jogos.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Catalogo_de_Jogos___API v1"));
             }
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();
 

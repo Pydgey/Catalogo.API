@@ -130,6 +130,5 @@ namespace Catalogo_de_Jogos___API.Repositories
             sqlConnection?.Close();
             sqlConnection?.Dispose();
         }
-    
     }
-    }
+}
